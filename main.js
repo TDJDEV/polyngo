@@ -2,25 +2,32 @@ const EPS = require('./EPS')
 
 EPS.add_route(
   {
-    methods: 'get',
+    method: 'get',
     path: '/',
     callback(req, res, next) {
       res.render('index', { title: 'Express' });
     }
   },
   {
-    methods: 'get',
+    method: 'get',
     path: '/exercice',
     callback(req, res, next) {
       res.render('index', { title: 'Express' });
     }
   },
   {
-    methods: 'get',
+    method: 'get',
     path: '/profile',
     callback(req, res, next) {
       res.render('index', { title: 'Express' });
     }
+  },
+
+  // Ressources
+  {
+    method: 'use',
+    path: '/',
+    callback: "./ressouces"
   },
 )
 
