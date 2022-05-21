@@ -1,0 +1,3 @@
+[submodule "EPS"]
+	path = EPS
+	url = git@github.com:TDJDEV/EPS.git
