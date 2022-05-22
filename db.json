@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "id": 1653234066119,
+      "name": "Cabbage",
+      "password": "frommage"
+    },
+    {
+      "id": 1653234082038,
+      "name": "Sel",
+      "password": "frommage"
+    },
+    {
+      "id": 1653234094320,
+      "name": "Tavros",
+      "password": "frommage"
+    },
+    {
+      "id": 1653234115571,
+      "name": "Torrus",
+      "password": "frommage"
+    }
+  ]
+}

@@ -2,6 +2,7 @@ import { EPS }        from './EPS/index.js';
 import cookieParser   from 'cookie-parser';
 import logger         from 'morgan';
 import cookieSession  from 'cookie-session';
+import * as db from './tables.js'
 
 EPS.use(
   logger('dev'),

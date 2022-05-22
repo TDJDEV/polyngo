@@ -7,6 +7,11 @@ const file = join(__dirname, 'db.json')
 const adapter = new JSONFile(file)
 const db = new Low(adapter)
 
+const DEBUG = (msg) => {
+  const debug = true
+  debug && console.log("DEBUG => ", msg)
+}
+
 class User{
 	constructor(name,password) {
 		this.id = Date.now()
@@ -14,30 +19,49 @@ class User{
 		this.password = password
 	}
 }
-await db.read()
 
-function addUser(name, password) {
+async function addUser(name, password, res) {
+	DEBUG('addUser')
+	DEBUG(`Name :${name}; Password ${password}`)
+	await db.read()
+	db.data ||= { users: [] }
 	const user = new User(name, password)
 	db.data.users.push(user)
 	await db.write()
-  return res.json({message: `Utilisateur ${name} créé avec succes.`})
+	DEBUG(`addUser :: ${JSON.stringify(user)}`)
+  // return res.json({message: `Utilisateur ${name} créé avec succes.`})
 }
 
-function delUser(id,res){
-	let users = db.data["users"]
+async function delUser(id, res){
+	DEBUG('delUser')
+	DEBUG(`Id :${id}`)
+	await db.read()
+	let users = db.data.users
+	DEBUG(`users :${JSON.stringify(users)}`)
 	const index = users.findIndex(x => x.id == id)
+	if (!index){
+		DEBUG('Utilisateur non trouvé')
+		// res.json({message: 'Utilisateur non trouvé'})
+	}
+	DEBUG(users[index])
 	const name = users[index].name
-	users = users.splice(index,1)
+	users.splice(index,1)
 	await db.write()
-  return res.json({message: `Utilisateur ${name} supprimé avec succes.`})
+	DEBUG(JSON.stringify(users))
+	DEBUG(`delUser :: L'utilisateur ${name} supprimé.`)
+  // return res.json({message: `Utilisateur ${name} supprimé avec succes.`})
 }
 
-function getUser(id){
+async function getUser(id, res){
+	DEBUG('getUser')
+await db.read()
 	await db.read()
 	const user = id  
 		? db.data.users.find(x => x.id = id)
 		: db.data.users
-	return res.json(user)
+	
+	DEBUG(JSON.stringify(user))
+	// return res.json(user)
 }
 
-export {addUser, delUser, getUser}
+export  {addUser, delUser, getUser} 
