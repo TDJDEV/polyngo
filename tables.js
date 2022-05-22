@@ -20,6 +20,7 @@ function addUser(name, password) {
 	const user = new User(name, password)
 	db.data.users.push(user)
 	await db.write()
+  return res.json({message: `Utilisateur ${name} créé avec succes.`})
 }
 
 function delUser(id,res){
@@ -28,7 +29,15 @@ function delUser(id,res){
 	const name = users[index].name
 	users = users.splice(index,1)
 	await db.write()
-  return res.json(`Utilisateur ${name} supprimé avec succes.`)
+  return res.json({message: `Utilisateur ${name} supprimé avec succes.`})
 }
 
-export {addUser, delUser}
+function getUser(id){
+	await db.read()
+	const user = id  
+		? db.data.users.find(x => x.id = id)
+		: db.data.users
+	return res.json(user)
+}
+
+export {addUser, delUser, getUser}
