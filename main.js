@@ -16,6 +16,7 @@ EPS.use(
 )
 
 EPS.route(
+  // Pages
   {
     method: 'get',
     path: '/',
@@ -36,6 +37,57 @@ EPS.route(
     method: 'get',
     path: '/profile',
     callback(req, res, next) {
+      res.render('index', { title: 'Express' });
+    }
+  },
+
+  // API
+
+  {
+    method: 'post', // create
+    path: '/api/:user/:data/:id',
+    callback(req, res, next) {
+      console.log("/api - post => ", {
+        params: req.params,
+        autorised: req.params.user === req.session.user,
+        data: req.body
+      })
+      res.render('index', { title: 'Express' });
+    }
+  },
+  {
+    method: 'get', // read
+    path: '/api/:user/:data/:id',
+    callback(req, res, next) {
+      console.log("/api - get => ", {
+        params: req.params,
+        autorised: req.params.user === req.session.user,
+        data: req.query
+      })
+      res.render('index', { title: 'Express' });
+    }
+  },
+  {
+    method: 'put', // update
+    path: '/api/:user/:data/:id',
+    callback(req, res, next) {
+      console.log("/api - put => ", {
+        params: req.params,
+        autorised: req.params.user === req.session.user,
+        data: req.body
+      })
+      res.render('index', { title: 'Express' });
+    }
+  },
+  {
+    method: 'delete', // delete
+    path: '/api/:user/:data/:id',
+    callback(req, res, next) {
+      console.log("/api - delete => ", {
+        params: req.params,
+        autorised: req.params.user === req.session.user,
+        data: req.body
+      })
       res.render('index', { title: 'Express' });
     }
   },
