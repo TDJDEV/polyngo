@@ -2,6 +2,7 @@ import { EPS }        from './EPS/index.js';
 import cookieParser   from 'cookie-parser';
 import logger         from 'morgan';
 import cookieSession  from 'cookie-session';
+import { addUser, delUser, getUser } from './tables.js';
 
 EPS.use(
   logger('dev'),
@@ -52,6 +53,7 @@ EPS.route(
         autorised: req.params.user === req.session.user,
         data: req.body
       })
+      addUser(req.body)
       res.render('index', { title: 'Express' });
     }
   },
@@ -64,6 +66,7 @@ EPS.route(
         autorised: req.params.user === req.session.user,
         data: req.query
       })
+      getUser(req.query.id, res)
       res.render('index', { title: 'Express' });
     }
   },
@@ -88,6 +91,7 @@ EPS.route(
         autorised: req.params.user === req.session.user,
         data: req.body
       })
+      delUser(req.body.id, res)
       res.render('index', { title: 'Express' });
     }
   },
